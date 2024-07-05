@@ -117,7 +117,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
-STAICFILES_DIR = [
+STAICFILES_DIRS = [
     'foodonline_main/static'
 ]
 
