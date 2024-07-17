@@ -30,9 +30,9 @@ class User_Manager(BaseUserManager):
             last_name = last_name,
         )
         user.is_admin = True
-        user.is_actice = True
+        user.is_active = True
         user.is_staff = True
-        user.is_superadmin = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -73,6 +73,9 @@ class User(AbstractBaseUser):
     
     def has_perm(self, perm, obj=None):
         return self.is_admin
+    
+    def has_module_perm(self, app_lable):
+        return True
     
 
     
