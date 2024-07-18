@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 
 # Create your models here.
 class User_Manager(BaseUserManager):
@@ -74,11 +76,52 @@ class User(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return self.is_admin
     
-    def has_module_perm(self, app_lable):
+    def has_module_perms(self, app_lable):
         return True
     
 
-    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,  on_delete=models.CASCADE, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='users/profile_pictures', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='users/cover_photos', blank=True, null=True)
+    address_line_1 = models.CharField(max_length=50, blank=True, null=True)
+    address_line_2 = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=15, blank=True, null=True)
+    state = models.CharField(max_length=15, blank=True, null=True)
+    city = models.CharField(max_length=15, blank=True, null=True)
+    pincode = models.CharField(max_length=6, blank=True, null=True)
+    latitude = models.CharField(max_length=20, blank=True, null=True)
+    longitude = models.CharField(max_length=20, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.user.email
+
+
+@receiver(post_save, sender=User)
+def post_save_create_profile_reciever(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+        print("User profile created")
+    else:
+        try:
+            profile = UserProfile.objects.get(user=instance)
+            profile.save()
+
+        except:
+            # create the userprofile if not exist
+            UserProfile.objects.create(user=instance)
+            print("User profile not found, newly created")
+        print("User profile updated")
+
+             
+@receiver(pre_save, sender=User)
+def pre_save_create_profile_reciever(sender, instance, **kwargs):
+    print(instance.username, 'this user being saved')
+        
+# post_save.connect(post_save_create_profile_reciever, sender=User)
 
 
 
