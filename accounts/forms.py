@@ -7,4 +7,12 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'phone_number', 'password']
-    
+
+    def clean(self):
+        cleaned_date = super(UserForm, self).clean()
+        password = cleaned_date.get('password')
+        confirm_password = cleaned_date.get('confirm_password')
+
+        if password != confirm_password:
+            raise forms.ValidationError("Password doesn't match")
+
