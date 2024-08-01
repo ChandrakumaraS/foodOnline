@@ -80,10 +80,11 @@ WSGI_APPLICATION = 'foodonline_main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
+        'NAME': 'foodonline_db',
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
+        'PORT':config('DB_PORT', cast=int)
     }
 }
 
