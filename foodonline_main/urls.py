@@ -26,7 +26,16 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('', include('accounts.urls')),
     path('marketplace/', include('marketplace.urls')),
+
+    # Cart
     path('cart/', Marketplaceviews.cart, name='cart'),
+
     # Search
     path('search/', Marketplaceviews.search, name='search'),
+
+    # Checkout
+    path('checkout/', Marketplaceviews.checkout, name='checkout'),
+
+    # Orders
+    path('orders/', include('orders.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

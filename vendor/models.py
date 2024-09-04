@@ -50,6 +50,7 @@ class Vendor(models.Model):
                     context = {
                         'user':self.user,
                         'is_approved': self.is_approved,
+                        'to_email': self.user.email,
                     }
                     send_notification(mail_subject, mail_template, context)
                 else:
@@ -58,6 +59,7 @@ class Vendor(models.Model):
                     context = {
                         'user':self.user,
                         'is_approved': self.is_approved,
+                        'to_email': self.user.email,
                     }
                     send_notification(mail_subject, mail_template, context)
         return super(Vendor, self).save(*args, **kwargs)
