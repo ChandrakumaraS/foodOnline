@@ -174,3 +174,7 @@ GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
+
+# settings.py
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

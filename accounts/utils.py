@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.conf import settings
 
 def detectUser(user):
@@ -23,12 +23,14 @@ def send_verification_email(request, user):
     mail_subject = 'Please activate your account'
     message = render_to_string('accounts/emails/account_verification_email.html', {
         'user' : user,
-        'domain' : current_site,
+        'domain' : current_site.domain,
         'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
         'token' : default_token_generator.make_token(user),
     })
     to_email = user.email
-    mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
+    mail = EmailMultiAlternatives(mail_subject, message, from_email, to=[to_email])
+    mail.attach_alternative(message, "text/html")
+    # mail.content_subtype = "html"
     mail.send()
 
 
@@ -46,13 +48,33 @@ def send_password_reset_email(request, user):
     mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
     mail.send()
 
+# def send_notification(mail_subject, mail_template, context):
+#     from_email = settings.DEFAULT_FROM_EMAIL
+#     message = render_to_string(mail_template, context)
+#     if(isinstance(context['to_email'], str)):
+#         to_email = []
+#         to_email.append([context['to_email']])
+#     else:
+#         # to_email = context['to_email']
+#         to_email = [email for sublist in context['to_email'] for email in (sublist if isinstance(sublist, list) else [sublist])]
+#     to_email = ', '.join(to_email)
+#     mail = EmailMultiAlternatives(mail_subject, message, from_email, to=[to_email])
+#     mail.attach_alternative(message, "text/html")
+#     mail.send()
+
 def send_notification(mail_subject, mail_template, context):
     from_email = settings.DEFAULT_FROM_EMAIL
     message = render_to_string(mail_template, context)
-    if(isinstance(context['to_email'], str)):
-        to_email = []
-        to_email.append(context['to_email'])
+    
+    # Ensure `to_email` is a flat list of strings
+    if isinstance(context['to_email'], str):
+        to_email = [context['to_email']]  # Wrap single email in a list
     else:
-        to_email = context['to_email']
-    mail = EmailMessage(mail_subject, message, from_email, to=to_email)
+        # Flatten the list in case there are nested lists
+        to_email = [email for sublist in context['to_email'] for email in (sublist if isinstance(sublist, list) else [sublist])]
+    
+    # Pass the list of emails directly to the `to` argument
+    mail = EmailMultiAlternatives(mail_subject, message, from_email, to=to_email)
+    mail.attach_alternative(message, "text/html")
     mail.send()
+
