@@ -57,3 +57,39 @@ table > tbody > tr > td{
     outline: 2px solid #ff0000;
 }
 
+@media only screen and (max-width: 480px) {
+    a.get-start-btn {
+        margin-left: 0 !important;
+        display: block;
+        margin-top: 15px !important;
+    }
+    .main-search-bar{
+        padding-top: 100px !important;
+        padding-bottom: 50px !important;
+        background-position: left !important;
+    }
+    .user-dashboard{
+        width: 100% !important;
+    }
+
+    .menu-itam-holder .menu-itam-list .price-holder span.price {
+        vertical-align: bottom !important;
+    }
+    .menu-itam-holder .quantity{
+        right: 0 !important;
+        margin-top: -30px !important;
+    }
+    .table.opening_hour{
+        width: 100% !important;
+    }
+    .table td{
+        padding: .5rem !important;
+    }
+}
+
+table td, table th{
+    line-height: 1rem !important;
+}
+
+
+

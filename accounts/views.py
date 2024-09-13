@@ -40,9 +40,10 @@ def registerUser(request):
             user.role = User.CUSTOMER
             user.save()
             # send verification email
-            send_verification_email(request, user)
+            email_template = 'Please activate your account'
+            mail_subject = 'accounts/emails/account_verigication_email.html'
+            send_verification_email(request, user, mail_subject, email_template)
             messages.success(request, "Your account is registered successfully")
-            # print(messages)
             return redirect('registerUser')
         else:
             print('Invalid Form')
@@ -81,6 +82,8 @@ def registerVendor(request):
             vendor.save()
 
             # send verification email
+            email_template = 'Please activate your account'
+            mail_subject = 'accounts/emails/account_verigication_email.html'
             send_verification_email(request, user)
             messages.success(request, "Your account is registered successfully, Please wait for approval")
             return redirect('registerVendor')
