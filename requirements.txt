@@ -7,7 +7,7 @@ charset-normalizer==3.3.2
 contourpy==1.2.1
 cryptography==43.0.0
 cycler==0.12.1
-Django==5.0.6
+Django==5.1.1
 fonttools==4.53.1
 idna==3.8
 kiwisolver==1.4.5
@@ -32,5 +32,5 @@ six==1.16.0
 sqlparse==0.5.0
 tzdata==2024.1
 urllib3==2.2.2
-whitenoise
-gunicorn
+whitenoise==6.7.0
+gunicorn==23.0.0
