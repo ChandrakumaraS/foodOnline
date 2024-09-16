@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'marketplace',
     'customers',
     'orders',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'orders.request_object.RequestObjectMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'foodonline_main.urls'
