@@ -1,16 +1,16 @@
 [Unit]
-Description=gunicorn daemon
-Requires=gunicorn.socket
+Description=gunicorn daemon for foodOnline
 After=network.target
 
 [Service]
 User=ubuntu
 Group=www-data
-WorkingDirectory=/home/ubuntu/django-aws-ec2-nginx-gunicorn
-ExecStart=/home/ubuntu/django-aws-ec2-nginx-gunicorn/venv/bin/gunicorn \
-          --access-logfile - \
-          --workers 3 \
-          --bind unix:/run/gunicorn.sock \
-          core.wsgi:application
+WorkingDirectory=/home/ubuntu/foodOnline
+RuntimeDirectory=foodOnline
+ExecStart=/home/ubuntu/foodOnline/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/foodOnline/run/gunicorn.sock --umask 007 foodOnline.foodonline_main.wsgi:application
+EnvironmentFile=/home/ubuntu/foodOnline/.env
+
+
 [Install]
 WantedBy=multi-user.target
+
