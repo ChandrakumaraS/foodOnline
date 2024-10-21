@@ -26,8 +26,8 @@
                                         <div class="img-holder">
                                             <figure>
                                                 <a href="#">
-                                                    {% if vendor.user_profile_profile_picture %}
-                                                    <img src="{{ vendor.user_profile_profile_picture.url }}" class="img-list wp-post-image" alt=""></a>
+                                                    {% if vendor.user_profile.profile_picture %}
+                                                    <img src="{{ vendor.user_profile.profile_picture.url }}" class="img-list wp-post-image" alt=""></a>
                                                     {% else %}
                                                     <img src="{% static 'images/default-profile.png' %}" class="img-list wp-post-image" alt=""></a>
                                                     {% endif %}

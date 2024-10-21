@@ -8,32 +8,48 @@ import simplejson as json
 
 from orders.models import Order, OrderedFood
 
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 @login_required(login_url='login')
 def cprofile(request):
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    # profile = get_object_or_404(UserProfile, user = request.user)
+    
     if request.method == "POST":
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        print(request.FILES)
         user_form = UserInfoForm(request.POST, instance=request.user)
+        
         if profile_form.is_valid() and user_form.is_valid():
             profile_form.save()
             user_form.save()
             messages.success(request, "Profile Updated")
+            logger.debug(f"Uploaded files: {request.FILES}")
+            logger.debug(f"Profile picture: {profile_form.cleaned_data.get('profile_picture')}")
+            logger.debug(f"Cover photo: {profile_form.cleaned_data.get('cover_photo')}")
             return redirect('cprofile')
+
+            
         else:
-            print(profile_form.errors)
-            print(user_form.errors)
-    else:      
+            logger.error(profile_form.errors)
+            logger.error(user_form.errors)
+
+    else:
         profile_form = UserProfileForm(instance=profile)
         user_form = UserInfoForm(instance=request.user)
 
     context = {
         'profile_form': profile_form,
-        'user_form' : user_form,
-        'profile': profile
-
+        'user_form': user_form,
+        'profile': profile,
     }
+    
     return render(request, 'customers/cprofile.html', context)
 
+@login_required(login_url='login')
 def my_orders(request):
     orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
 
@@ -42,6 +58,7 @@ def my_orders(request):
     }
     return render(request, 'customers/my_orders.html', context)
 
+@login_required(login_url='login')
 def order_detail(request, order_number):
     try:
         order = Order.objects.get(order_number=order_number, is_ordered=True)

@@ -34,18 +34,19 @@ def vprofile(request):
 
     if request.method == "POST":
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        print(request.FILES)
         vendor_form = VendorForm(request.POST, request.FILES, instance=vendor)
         if profile_form.is_valid() and vendor_form.is_valid():
             profile_form.save()
             vendor_form.save()
-            messages.success(request, "Settings Updated.")
+            messages.success(request, "Profile Updated")
             return redirect('vprofile')
         else:
             print(profile_form.errors)
             print(vendor_form.errors)
     else:
         profile_form = UserProfileForm(instance=profile)
-        vendor_form = VendorForm(instance=vendor)
+        vendor_form = VendorForm(instance=vendor) 
     context = {
         'profile_form' : profile_form,
         'vendor_form' :vendor_form,

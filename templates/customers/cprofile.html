@@ -3,7 +3,7 @@
 
 
 {% block content %}
-{% load static%}
+{% load static %}
 <!-- Main Section Start -->
 <div class="main-section">
     {% include 'customers/cover.html' %}
@@ -18,7 +18,7 @@
                     <div class="user-dashboard loader-holder">
                         <div class="user-holder">
                             <h5>Profile Settings</h5>
-                            <form action="{% url 'cprofile' %}" method="POST", enctype="multipart/form-data">
+                            <form action="{% url 'cprofile' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-fields-set">
                                     <ul>
@@ -32,7 +32,7 @@
                                                                     <div class="drag-list">
                                                                         <div class="item-thumb">
                                                                             {% if profile.profile_picture %}
-                                                                            <img class="thumbnail" src="{{profile.profile_picture.url}}" alt="Profile Picture">
+                                                                            <img class="thumbnail" src="{{ profile.profile_picture.url }}" alt="Profile Picture">
                                                                             {% else %}
                                                                             <img class="thumbnail" src="{% static 'images/default-profile.png'%}" alt="Profile Picture">
                                                                             {% endif %}
@@ -62,7 +62,7 @@
                                                                             {% else %}
                                                                             <img class="thumbnail" src="{% static 'images/default-cover.png'%}" alt="Cover Photo">
                                                                             {% endif %}
-                                                                        </div>
+                                                                        </div> 
                                                                     </div>
                                                                 </li>
                                                             </ul>

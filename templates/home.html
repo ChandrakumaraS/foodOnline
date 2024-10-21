@@ -86,7 +86,7 @@
 							<li class="has-border">
 								<figure>
 									{% if vendor.user_profile.profile_pictures %}
-									<a href="#"><img src="{{ vendor.user_profile.profile_pictures.url }}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
+									<a href="#"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% else %}
 									<a href="#"><img src="{% static 'images/default-profile.png' %}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% endif %}
@@ -120,7 +120,7 @@
 									<div class="img-holder">
 										<figure>
 											<a href="#">
-												{% if vendor.user_profile.profile_picture %}
+												{% if vendor.user_profile.profile_pictures %}
 												<img src="{{ vendor.user_profile.profile_picture.url }}" class="img-thumb wp-post-image" alt=""></a>
 												{% else %}
 												<img src="{% static 'images/default-profile.png' %}" class="img-thumb wp-post-image" alt=""></a>
