@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['13.233.139.189', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['13.233.139.189', 'localhost', '127.0.0.1', 'cloudkitchens.online', 'www.cloudkitchens.online']
 
 
 # Application definition
@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'customers',
     'orders',
     'whitenoise.runserver_nostatic',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://cloudkitchens.online',
+    'https://www.cloudkitchens.online',
 ]
 
 MIDDLEWARE = [
@@ -138,9 +143,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+
 STATIC_URL = '/static/'
 #STATIC_ROOT = BASE_DIR / 'static'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+
 #STATICFILES_DIRS = [
 #    'foodonline_main/static',
 #]
@@ -152,8 +163,8 @@ WHITENOISE_USE_FINDERS = True
 
 MEDIA_URL = '/media/'
 
-#MEDIA_ROOT = BASE_DIR /'media'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR /'media'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -197,10 +208,9 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
         },
-        'foodonline_main': { 
+        'foodonline_main': {
             'handlers': ['console'],
             'level': 'INFO',
         },
     },
 }
-

@@ -14,9 +14,9 @@
 					<div class="element-title">
 						<h1 style="font-size: 40px; color: #505050; text-transform: uppercase; line-height: 50px; margin-bottom: 25px; text-align:center;">
 							We are in the business of food<br>our restaurants do</h1>
-						<p style="font-size: 18px; letter-spacing: 1px; color: #505050; text-align:center;">
+						<!-- <p style="font-size: 18px; letter-spacing: 1px; color: #505050; text-align:center;">
 							Ridiculus sociosqu
-							cursus neque cursus curae ante scelerisque vehicula.</p>
+							cursus neque cursus curae ante scelerisque vehicula.</p> -->
 					</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -85,10 +85,10 @@
 							{% for vendor in vendors %}
 							<li class="has-border">
 								<figure>
-									{% if vendor.user_profile.profile_pictures %}
-									<a href="#"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
+									{% if vendor.user_profile.profile_picture %}
+									<a href="{% url 'vendor_details' vendor.vendor_slug %}"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% else %}
-									<a href="#"><img src="{% static 'images/default-profile.png' %}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
+									<a href="{% url 'vendor_details' vendor.vendor_slug %}"><img src="{% static 'images/default-profile.png' %}" height="125px" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% endif %}
 								</figure>
 							</li>
@@ -107,7 +107,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="element-title align-center">
 						<h2>Choose From Most Popular Restaurants</h2>
-						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<!-- <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p> -->
 					</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -119,8 +119,8 @@
 								<div class="list-post featured">
 									<div class="img-holder">
 										<figure>
-											<a href="#">
-												{% if vendor.user_profile.profile_pictures %}
+											<a href="{% url 'vendor_details' vendor.vendor_slug %}">
+												{% if vendor.user_profile.profile_picture %}
 												<img src="{{ vendor.user_profile.profile_picture.url }}" class="img-thumb wp-post-image" alt=""></a>
 												{% else %}
 												<img src="{% static 'images/default-profile.png' %}" class="img-thumb wp-post-image" alt=""></a>
@@ -139,7 +139,7 @@
 									<div class="text-holder">
 										<div class="post-title">
 											<h5>
-												<a href="listing-detail.html">{{vendor}}</a>
+												<a href="listing.html">{{vendor}}</a>
 											</h5>
 										</div>
 										{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pincode %}
